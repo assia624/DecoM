@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class PanierController extends Controller
 {
    function index(){
-    $panier = session()->get('panier');
+    $panier = session()->get('panier',[]);
+     
     return view('panier', compact('panier'));
    }
    function add($id){
@@ -40,4 +41,34 @@ class PanierController extends Controller
     return redirect()->route('panier')->with('produit ajouter avec succès');
     
    }
+   public function ajouterAjax(Request $request)
+{
+    $article = Article::find($request->id);
+
+    if (!$article) {
+        return response()->json(['success' => false, 'message' => 'Article introuvable.']);
+    }
+
+    // Exemple de panier stocké dans la session
+    $cart = session()->get('panier', []);
+    
+    // Si l'article existe déjà dans le panier
+    if (isset($cart[$article->id])) {
+        $cart[$article->id]['quantity']++;
+    } else {
+        $cart[$article->id] = [
+            "title" => $article->title,
+            "quantity" => 1,
+            "price" => $article->price,
+            "image" => $article->image
+        ];
+    }
+
+    session()->put('panier', $cart);
+
+    return response()->json([
+        'success' => true,
+         'total' => count($cart)
+    ]);
+}
 }

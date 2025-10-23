@@ -8,6 +8,24 @@
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
+<div class="mt-4">
+    <x-input-label for="nom" :value="__('Nom')" />
+    <x-text-input id="nom" class="block mt-1 w-full" type="text" name="nom" :value="old('nom')" required autocomplete="family-name" />
+    <x-input-error :messages="$errors->get('nom')" class="mt-2" />
+</div>
+
+<div class="mt-4">
+    <x-input-label for="prenom" :value="__('Prénom')" />
+    <x-text-input id="prenom" class="block mt-1 w-full" type="text" name="prenom" :value="old('prenom')" required autocomplete="given-name" />
+    <x-input-error :messages="$errors->get('prenom')" class="mt-2" />
+</div>
+
+<div class="mt-4">
+    <x-input-label for="telephone" :value="__('Téléphone')" />
+    <x-text-input id="telephone" class="block mt-1 w-full" type="tel" name="telephone" :value="old('telephone')" required autocomplete="tel" />
+    <x-input-error :messages="$errors->get('telephone')" class="mt-2" />
+</div>
+
 
         <!-- Email Address -->
         <div class="mt-4">
@@ -50,3 +68,4 @@
         </div>
     </form>
 </x-guest-layout>
+
