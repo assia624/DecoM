@@ -41,3 +41,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/merci/{id}', [CommandeController::class, 'merci'])->name('merci');
 });
+Route::get('/a-propos', function () {
+    return view('a-propos');
+})->name('a-propos');

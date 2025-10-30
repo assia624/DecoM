@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mon Panier - DecoM</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À propos - DecoM</title>
   <script src="https://cdn.tailwindcss.com"></script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Inter', sans-serif; background: #FAFAF8; color: #1A1A1A; }
+    body { font-family: 'Inter', sans-serif; color: #1A1A1A; }
     .font-display { font-family: 'Cormorant Garamond', serif; }
-    .nav-glass { background: rgba(250, 250, 248, 0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(26,26,26,0.08); }
-    .product-card { transition: all 0.3s ease; border-radius: 1.25rem; }
-    .product-card:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(26,26,26,0.1); }
-    .hero-overlay { background: rgba(0,0,0,0.45); }
+    .highlight { color: #C89B6D; }
   </style>
 </head>
+<body class="flex flex-col min-h-screen bg-[#FAFAF8]">
 
-<body>
-
-   <nav class="nav-glass fixed top-0 left-0 right-0 z-50">
+  <!-- HEADER -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-[#1A1A1A]/30 backdrop-blur-sm border-b border-[#ffffff1a]">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
@@ -27,31 +23,29 @@
                     <div class="w-10 h-10 bg-[#1A1A1A] rounded-full flex items-center justify-center transition-transform group-hover:rotate-180 duration-500">
                         <span class="text-[#FAFAF8] font-display text-xl font-semibold">D</span>
                     </div>
-                    <span class="font-display text-2xl font-semibold text-[#1A1A1A] tracking-tight">DecoM</span>
+                    <span class="font-display text-2xl font-semibold text-[#FAFAF8] tracking-tight">DecoM</span>
                 </a>
 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-10">
-                    <a href
-
- class="text-sm font-medium text-[#1A1A1A] hover:text-[#D4A574] transition-colors duration-300">Accueil</a>
-                    <a href="/a-propos" class="text-sm font-medium text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300">À propos</a>
-                    <a href="#contact" class="text-sm font-medium text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300">Contact</a>
+                    <a href="/" class="text-sm font-medium text-[#FAFAF8] hover:text-[#D4A574] transition-colors duration-300">Accueil</a>
+                    <a href="/a-propos" class="text-sm font-medium text-[#FAFAF8] hover:text-[#D4A574] transition-colors duration-300">À propos</a>
+                    <a href="#contact" class="text-sm font-medium text-[#FAFAF8] hover:text-[#D4A574] transition-colors duration-300">Contact</a>
                 </div>
 
                 <!-- Right Actions -->
                 <div class="flex items-center space-x-6">
                     @guest
                        <a href="{{ route('panier') }}"  class="relative group">
-                            <svg class="w-6 h-6 text-[#1A1A1A] group-hover:text-[#D4A574] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-6 h-6 text-[#D4A574] group-hover:text-[#FAFAF8] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                             </svg>
                         </a>
-                        <a href="/login" class="hidden md:inline-block text-sm font-medium text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300">Connexion</a>
-                        <a href="/register" class="px-6 py-2.5 bg-[#1A1A1A] text-[#FAFAF8] text-sm font-medium rounded-full hover:bg-[#2A2A2A] transition-all duration-300">S'inscrire</a>
+                        <a href="/login" class="hidden md:inline-block text-sm font-medium text-[#FAFAF8] hover:text-[#1A1A1A] transition-colors duration-300">Connexion</a>
+                        <a href="/register" class="px-6 py-2.5 bg-[#D4A574] text-[#FAFAF8] text-sm font-medium rounded-full hover:bg-[#2A2A2A] transition-all duration-300">S'inscrire</a>
                     @else
                         <a href="{{ route('panier') }}"  class="relative group">
-                            <svg class="w-6 h-6 text-[#1A1A1A] group-hover:text-[#D4A574] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-6 h-6 text-[#FAFAF8] group-hover:text-[#D4A574] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                             </svg>
                         </a>
@@ -64,74 +58,70 @@
         </div>
     </nav>
 
-
-  <!-- 🖼️ HERO SECTION -->
-  <section class="relative h-[85vh] flex items-center justify-center mt-20">
-    <div class="absolute inset-0">
-      <img src="{{ asset('storage/images/panier.jpg') }}" alt="Panier DecoM" class="w-full h-full object-cover">
-      <div class="hero-overlay absolute inset-0"></div>
-    </div>
-    <div class="relative z-10 text-center px-6">
-      <h1 class="font-display text-6xl md:text-8xl font-light text-white mb-6 leading-tight">
-        Votre Panier
-      </h1>
-      <p class="text-lg md:text-xl text-white/90 font-light max-w-2xl mx-auto mb-10">
-        Découvrez les créations que vous avez sélectionnées pour sublimer votre intérieur.
-      </p>
-      <a href="{{ route('home') }}" class="inline-block px-10 py-4 bg-white text-[#1A1A1A] rounded-full font-semibold text-sm hover:bg-[#FAFAF8] transition-all duration-300">
-        Continuer vos achats
-      </a>
+  <!-- SECTION HERO -->
+  <section class="relative bg-cover bg-center h-[60vh]" style="background-image: url('{{ asset('storage/images/background2.jpg') }}');">
+    <div class="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-center text-white px-6">
+      <h1 class="text-5xl font-display font-semibold mb-4">À propos de <span class="highlight">DecoM</span></h1>
+      <p class="max-w-2xl text-lg">L’élégance et le confort réunis pour sublimer votre intérieur.</p>
     </div>
   </section>
 
-  <!-- 🛒 CONTENU DU PANIER -->
-  <main class="max-w-6xl mx-auto px-6 py-20">
-    @php $total = 0; @endphp
+  <!-- SECTION DESCRIPTION -->
+  <section class="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12 items-center">
+    <div>
+      <h2 class="text-3xl font-display font-semibold mb-4">Notre histoire</h2>
+      <p class="text-gray-700 mb-4 leading-relaxed">
+        <span class="highlight font-semibold">DecoM</span> est une boutique spécialisée dans la vente de meubles modernes et élégants.  
+        Notre mission est d’apporter à chaque foyer une touche de raffinement grâce à des pièces au design épuré et intemporel.
+      </p>
+      <p class="text-gray-700 leading-relaxed">
+        Nous sélectionnons des matériaux de qualité et collaborons avec des artisans passionnés pour créer des meubles à la fois esthétiques et durables.
+      </p>
+    </div>
 
-    @if(empty($panier))
-      <div class="text-center py-20">
-        <p class="text-[#6B6B6B] text-lg">Votre panier est vide.</p>
+    <img src="{{ asset('storage/images/showroom.png') }}" alt="Showroom DecoM" class="rounded-2xl shadow-lg">
+  </section>
+
+  <!-- SECTION PRODUITS -->
+  <section class="bg-[#1A1A1A] text-white py-16">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-display mb-8">Nos <span class="highlight">Collections</span></h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white/10 rounded-2xl p-6 hover:bg-white/20 transition">
+          <img src="{{ asset('storage/images/feuteuille.jpeg') }}" alt="Fauteuil" class="rounded-xl mb-4 w-full h-48 object-cover">
+          <h3 class="text-xl font-semibold highlight mb-2">Fauteuils & Canapés</h3>
+          <p class="text-gray-300 text-sm">Des assises confortables au design raffiné, parfaites pour vos salons modernes.</p>
+        </div>
+
+        <div class="bg-white/10 rounded-2xl p-6 hover:bg-white/20 transition">
+          <img src="{{ asset('storage/images/table.jpeg') }}" alt="Table" class="rounded-xl mb-4 w-full h-48 object-cover">
+          <h3 class="text-xl font-semibold highlight mb-2">Tables & Chaises</h3>
+          <p class="text-gray-300 text-sm">Des pièces élégantes alliant fonctionnalité et esthétique contemporaine.</p>
+        </div>
+
+        <div class="bg-white/10 rounded-2xl p-6 hover:bg-white/20 transition">
+          <img src="{{ asset('storage/images/lampe.jpg') }}" alt="Lampe" class="rounded-xl mb-4 w-full h-48 object-cover">
+          <h3 class="text-xl font-semibold highlight mb-2">Éclairage & Déco</h3>
+          <p class="text-gray-300 text-sm">Des luminaires et accessoires qui apportent chaleur et ambiance à votre espace.</p>
+        </div>
       </div>
-    @else
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        @foreach($panier as $id => $produit)
-          <div class="product-card bg-white p-6 flex flex-col md:flex-row items-center gap-6">
-            <img src="{{ asset('storage/' . $produit['image']) }}" alt="{{ $produit['title'] }}" class="w-40 h-40 object-cover rounded-xl">
-            <div class="flex-1">
-              <h2 class="font-display text-2xl font-semibold mb-2">{{ $produit['title'] }}</h2>
-              <p class="text-[#6B6B6B] mb-2">Prix : {{ $produit['price'] }} MAD</p>
-              <p class="text-[#6B6B6B]">Quantité : {{ $produit['quantity'] }}</p>
-            </div>
+    </div>
+  </section>
 
-            <div class="flex flex-col gap-2">
-              <form method="POST" action="{{ route('ajouter', $id) }}">
-                @csrf
-                <button class="px-4 py-2 rounded-full bg-[#1A1A1A] text-white hover:bg-[#C89B6D]">+</button>
-              </form>
-
-              <form method="POST" action="{{ route('supprimer', $id) }}">
-                @csrf
-                @method('DELETE')
-                <button class="px-4 py-2 rounded-full bg-[#D4A574] text-white hover:bg-[#9f6831]">−</button>
-              </form>
-            </div>
-          </div>
-          @php $total += $produit['price'] * $produit['quantity']; @endphp
-        @endforeach
+  <!-- SECTION MAP -->
+  <section class="py-16 bg-[#FAFAF8]">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-display font-semibold mb-6">📍 Où nous trouver</h2>
+      <p class="text-gray-700 mb-8">Notre showroom est situé au cœur de Casablanca. Venez découvrir nos collections sur place.</p>
+      <div class="overflow-hidden rounded-2xl shadow-lg">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3329.734050917034!2d-7.6209438!3d33.5928691!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7cdcfb8c4a3bb%3A0x5f7f7ebbe33400a!2sCasablanca!5e0!3m2!1sfr!2sma!4v1698350000000"
+          width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
       </div>
+    </div>
+  </section>
 
-      <div class="mt-12 flex flex-col md:flex-row justify-between items-center">
-        <span class="font-display text-3xl font-semibold mb-6 md:mb-0">Total : {{ $total }} MAD</span>
-         <form action="{{ route('commande.create') }}" method="GET">
-    <button type="submit" class="px-10 py-4 bg-[#1A1A1A] text-white rounded-full font-semibold hover:bg-[#C89B6D] transition-all duration-300">
-        Valider la commande
-    </button>
-</form>
-
-      </div>
-    @endif
-  </main>
-
+  <!-- FOOTER -->
 <footer class="bg-[#1A1A1A] text-white py-16 px-6" id="contact">
   <div class="max-w-7xl mx-auto">
     <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">

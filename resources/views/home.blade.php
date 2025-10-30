@@ -195,13 +195,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     <a href
 
  class="text-sm font-medium text-[#1A1A1A] hover:text-[#D4A574] transition-colors duration-300">Accueil</a>
-                    <a href="/about" class="text-sm font-medium text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300">À propos</a>
-                    <a href="/contact" class="text-sm font-medium text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300">Contact</a>
+                    <a href="/a-propos" class="text-sm font-medium text-[#1A1A1A] hover:text-[#D4A574] transition-colors duration-300">À propos</a>
+                    <a href="#contact" class="text-sm font-medium text-[#1A1A1A] hover:text-[#D4A574] transition-colors duration-300">Contact</a>
                 </div>
 
                 <!-- Right Actions -->
                 <div class="flex items-center space-x-6">
                     @guest
+                       <a href="{{ route('panier') }}"  class="relative group">
+                            <svg class="w-6 h-6 text-[#1A1A1A] group-hover:text-[#D4A574] transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                            </svg>
+                        </a>
                         <a href="/login" class="hidden md:inline-block text-sm font-medium text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300">Connexion</a>
                         <a href="/register" class="px-6 py-2.5 bg-[#1A1A1A] text-[#FAFAF8] text-sm font-medium rounded-full hover:bg-[#2A2A2A] transition-all duration-300">S'inscrire</a>
                     @else
@@ -345,175 +350,149 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
     </section>
 
-    <!-- Products Grid -->
-  <section class="py-20 px-6 bg-[#FAFAF8]">
-    <div class="max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            @forelse($articles as $article)
-                <article class="bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden group relative">
-                    
-                    <!-- Image -->
-                    <div class="relative h-72 overflow-hidden">
-                        <img 
-                            src="{{ asset('storage/' . $article->image) }}" 
-                            alt="{{ $article->title }}" 
-                            class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
-                        >
-                        <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 flex items-center justify-center">
-                            <a 
-                                href="{{ route('details', $article->id) }}"
-                                class="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 px-6 py-2.5 bg-white text-[#1A1A1A] text-sm font-semibold rounded-full shadow hover:bg-[#F7F7F5]"
-                            >
-                                Voir les détails
-                            </a>
-                        </div>
-                    </div>
+  <!-- Products Grid -->
+<section class="py-20 px-6 bg-[#FAFAF8]">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      @forelse($articles as $article)
+        <article class="bg-white rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500 group relative flex flex-col">
+          <!-- Image -->
+          <div class="relative h-72 overflow-hidden">
+            <img 
+              src="{{ asset('storage/' . $article->image) }}" 
+              alt="{{ $article->title }}" 
+              class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+            >
+            <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 flex items-center justify-center"> <a href="{{ route('details', $article->id) }}" class="opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-500 px-6 py-2.5 bg-white text-[#1A1A1A] text-sm font-semibold rounded-full shadow hover:bg-[#F7F7F5]" > Voir les détails </a> </div>
 
-                    <!-- Contenu -->
-                    <div class="p-6">
-                        <h3 class="font-display text-xl font-semibold text-[#1A1A1A] mb-2 group-hover:text-[#C89B6D] transition-colors duration-300">
-                            {{ $article->title }}
-                        </h3>
-                        <p class="text-[#6B6B6B] text-sm leading-relaxed mb-4 line-clamp-3">
-                            {{ $article->content }}
-                        </p>
+          </div>
 
-                        <!-- Section bas : bouton + prix + catégorie -->
-                    <div class="flex flex-col gap-3 border-t border-[#EAEAEA] pt-4">
-    <button  
-        type="button"
-        data-id="{{ $article->id }}"
-        class="btn-panier w-full bg-[#1A1A1A] text-white py-2 rounded-full text-sm font-semibold tracking-wide hover:bg-[#C89B6D] transition-all duration-300 flex items-center justify-center gap-2"
-    >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 7h13L17 13M10 21h4"/>
-        </svg>
-        Ajouter au panier
-    </button>
-</div>
- 
-                          
-                              
- 
-                            <div class="flex items-center justify-between">
-                                <span class="font-display text-2xl font-semibold text-[#1A1A1A]">
-                                    {{ number_format($article->price, 2) }}€
-                                </span>
-                                <span class="text-xs font-medium text-[#C89B6D] uppercase tracking-wide">
-                                    {{ $article->categories }}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            @empty
-                <div class="col-span-full text-center py-20">
-                    <div class="inline-block p-8 bg-white rounded-2xl">
-                        <svg class="w-16 h-16 text-[#E5E5E5] mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"/>
-                        </svg>
-                        <p class="font-display text-2xl text-[#1A1A1A] mb-2">Aucun produit trouvé</p>
-                        <p class="text-[#6B6B6B]">Essayez de modifier vos critères de recherche</p>
-                    </div>
-                </div>
-            @endforelse
+          <!-- Contenu -->
+          <div class="p-6 flex-1 flex flex-col justify-between">
+            <div>
+              <h3 class="font-display text-xl font-semibold text-[#1A1A1A] mb-2 group-hover:text-[#C89B6D] transition-colors duration-300">
+                {{ $article->title }}
+              </h3>
+              <p class="text-[#6B6B6B] text-sm leading-relaxed mb-4 line-clamp-3">
+                {{ $article->content }}
+              </p>
+            </div>
+
+            <!-- Section bas : bouton + prix + catégorie -->
+            <div class="mt-auto flex flex-col gap-3 border-t border-[#EAEAEA] pt-4">
+              <button type="button" data-id="{{ $article->id }}" class="btn-panier w-full bg-[#1A1A1A] text-white py-2 rounded-full text-sm font-semibold tracking-wide hover:bg-[#C89B6D] transition-all duration-300 flex items-center justify-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 7h13L17 13M10 21h4"/>
+                </svg>
+                Ajouter au panier
+              </button>
+
+              <div class="flex items-center justify-between">
+                <span class="font-display text-2xl font-semibold text-[#1A1A1A]">
+                  {{ number_format($article->price, 2) }} MAD
+                </span>
+                <span class="text-xs font-medium text-[#C89B6D] uppercase tracking-wide">
+                  {{ $article->categories }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </article>
+      @empty
+        <div class="col-span-full text-center py-20">
+          <div class="inline-block p-8 bg-white rounded-2xl">
+            <p class="font-display text-2xl text-[#1A1A1A] mb-2">Aucun produit trouvé</p>
+            <p class="text-[#6B6B6B]">Essayez de modifier vos critères de recherche</p>
+          </div>
         </div>
+      @endforelse
     </div>
+  </div>
 </section>
 
 
 
+
     <!-- Newsletter Section -->
-    <section class="py-24 px-6 bg-[#1A1A1A]">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="font-display text-5xl md:text-6xl font-light text-white mb-6">Restez Inspiré</h2>
-            <p class="text-white/70 text-lg mb-12 leading-relaxed">
-                Recevez nos dernières créations et conseils déco directement dans votre boîte mail
-            </p>
-            
-            <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-                <input 
-                    type="email" 
-                    placeholder="Votre adresse email" 
-                    class="flex-1 px-6 py-4 bg-white/10 border border-white/20 rounded-full text-white placeholder-white/50 focus:outline-none focus:border-white/40 transition-all duration-300">
-                <button type="submit" class="btn-primary px-10 py-4 bg-white text-[#1A1A1A] font-semibold rounded-full hover:bg-[#FAFAF8] transition-all duration-300 whitespace-nowrap">
-                    S'abonner
-                </button>
-            </form>
+
+
+   <!-- Footer -->
+<footer class="bg-[#1A1A1A] text-white py-16 px-6" id="contact">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <div class="flex items-center space-x-3 mb-6">
+          <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+            <span class="text-[#1A1A1A] font-display text-xl font-semibold">D</span>
+          </div>
+          <span class="font-display text-2xl font-semibold text-white">DecoM</span>
         </div>
-    </section>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Créer des espaces qui inspirent, une pièce à la fois.
+        </p>
+      </div>
 
-    <!-- Footer -->
-    <footer class="bg-white py-16 px-6">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-                <!-- Brand -->
-                <div class="md:col-span-1">
-                    <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-10 h-10 bg-[#1A1A1A] rounded-full flex items-center justify-center">
-                            <span class="text-[#FAFAF8] font-display text-xl font-semibold">D</span>
-                        </div>
-                        <span class="font-display text-2xl font-semibold text-[#1A1A1A]">DecoM</span>
-                    </div>
-                    <p class="text-[#6B6B6B] text-sm leading-relaxed">
-                        Créer des espaces qui inspirent, une pièce à la fois.
-                    </p>
-                </div>
+      <!-- Links -->
+      <div>
+        <h3 class="font-semibold text-[#C89B6D] mb-4 text-sm uppercase tracking-wider">Navigation</h3>
+        <ul class="space-y-3">
+          <li><a href="/" class="text-gray-300 hover:text-[#C89B6D] transition-colors duration-300 text-sm">Accueil</a></li>
+          <li><a href="/a-propos" class="text-gray-300 hover:text-[#C89B6D] transition-colors duration-300 text-sm">À propos</a></li>
+          <li><a href="/contact" class="text-gray-300 hover:text-[#C89B6D] transition-colors duration-300 text-sm">Contact</a></li>
+        </ul>
+      </div>
 
-                <!-- Links -->
-                <div>
-                    <h3 class="font-semibold text-[#1A1A1A] mb-4 text-sm uppercase tracking-wider">Navigation</h3>
-                    <ul class="space-y-3">
-                        <li><a href="/" class="text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300 text-sm">Accueil</a></li>
-                        <li><a href="/shop" class="text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300 text-sm">Boutique</a></li>
-                        <li><a href="/about" class="text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300 text-sm">À propos</a></li>
-                        <li><a href="/contact" class="text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300 text-sm">Contact</a></li>
-                    </ul>
-                </div>
+      <!-- Categories -->
+      <div>
+        <h3 class="font-semibold text-[#C89B6D] mb-4 text-sm uppercase tracking-wider">Catégories</h3>
+        <ul class="space-y-3">
+          <li><a href="/?category=lamp" class="text-gray-300 hover:text-[#C89B6D] transition-colors duration-300 text-sm">Lampe</a></li>
+          <li><a href="/?category=vase" class="text-gray-300 hover:text-[#C89B6D] transition-colors duration-300 text-sm">Vases</a></li>
+          <li><a href="/?category=mug" class="text-gray-300 hover:text-[#C89B6D] transition-colors duration-300 text-sm">Mugs</a></li>
+        </ul>
+      </div>
 
-                <div>
-                    <h3 class="font-semibold text-[#1A1A1A] mb-4 text-sm uppercase tracking-wider">Catégories</h3>
-                    <ul class="space-y-3">
-                        <li><a href="/?category=lamp" class="text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300 text-sm">Luminaires</a></li>
-                        <li><a href="/?category=vase" class="text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300 text-sm">Vases</a></li>
-                        <li><a href="/?category=mug" class="text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300 text-sm">Mugs</a></li>
-                    </ul>
-                </div>
+      <!-- Contact -->
+      <div>
+        <h3 class="font-semibold text-[#C89B6D] mb-4 text-sm uppercase tracking-wider">Contact</h3>
+        <ul class="space-y-3 text-sm text-gray-300">
+          <li>26 Rue d'andromède</li>
+          <li>Casablanca,Maroc</li>
+          <li class="pt-2"><a href="mailto:hello@decom.fr" class="hover:text-[#C89B6D] transition-colors duration-300">hcontact@decom.com</a></li>
+          <li><a href="tel:+33123456789" class="hover:text-[#C89B6D] transition-colors duration-300">+212 7 58 96 33 65</a></li>
+        </ul>
+      </div>
+    </div>
 
-                <div>
-                    <h3 class="font-semibold text-[#1A1A1A] mb-4 text-sm uppercase tracking-wider">Contact</h3>
-                    <ul class="space-y-3 text-sm text-[#6B6B6B]">
-                        <li>123 Rue du Design</li>
-                        <li>75001 Paris, France</li>
-                        <li class="pt-2"><a href="mailto:hello@decom.fr" class="hover:text-[#1A1A1A] transition-colors duration-300">hello@decom.fr</a></li>
-                        <li><a href="tel:+33123456789" class="hover:text-[#1A1A1A] transition-colors duration-300">+33 1 23 45 67 89</a></li>
-                    </ul>
-                </div>
-            </div>
+    <!-- Bottom -->
+    <div class="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-gray-400 text-sm">© 2025 <span class="text-[#C89B6D]">DecoM</span>. Tous droits réservés.</p>
+      <div class="flex gap-6">
+        <!-- Facebook -->
+        <a href="#" class="text-gray-400 hover:text-[#C89B6D] transition-colors duration-300">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+        </a>
 
-            <!-- Bottom -->
-            <div class="pt-8 border-t border-[#E5E5E5] flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-[#6B6B6B] text-sm">© 2025 DecoM. Tous droits réservés.</p>
-                <div class="flex gap-6">
-                    <a href="#" class="text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                        </svg>
-                    </a>
-                    <a href="#" class="text-[#6B6B6B] hover:text-[#1A1A1A] transition-colors duration-300">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </footer>
+        <!-- Instagram -->
+        <a href="#" class="text-gray-400 hover:text-[#C89B6D] transition-colors duration-300">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.053.014 8.333 0 8.741 0 12s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.668-.014 4.948-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0z"/>
+            <circle cx="12" cy="12" r="3.2"/>
+          </svg>
+        </a>
+
+        <!-- Twitter -->
+        <a href="#" class="text-gray-400 hover:text-[#C89B6D] transition-colors duration-300">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
